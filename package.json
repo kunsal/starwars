@@ -1,0 +1,40 @@
+{
+  "name": "starwars",
+  "version": "1.0.0",
+  "description": "Minimalist Starwars movies API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunsal/starwars.git"
+  },
+  "keywords": [
+    "starwars",
+    "nodejs",
+    "express",
+    "api",
+    "olakunle",
+    "salami"
+  ],
+  "author": "Olakunle Salami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunsal/starwars/issues"
+  },
+  "homepage": "https://github.com/kunsal/starwars#readme",
+  "dependencies": {
+    "config": "^3.1.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.5.6",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "request": "^2.88.0",
+    "winston": "^3.2.1"
+  }
+}
