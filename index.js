@@ -1,13 +1,14 @@
 // Imports
-const winston = require('winston');
-const Joi = require('joi');
 const config = require('config');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const express = require('express');
-const mongoose = require('mongoose');
 
-const movies = require('./routes/movies');
+// Database connection
+require('./src/database/connection');
+
+const movies = require('./src/routes/movies');
+const comments = require('./src/routes/comments');
 
 dotenv.config();
 app = express();
@@ -16,14 +17,11 @@ app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// async function connectDb() {
-//     await mongoose.connect(process.env.DB_LINK, { useNewUrlParser: true });
-//     console.log('Database connected')
-// }
-// connectDb();
-
+app.use('/api/comments', comments);
 app.use('/api/movies', movies);
 
+// Close database connection
+//connection.end(function (err) {});
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

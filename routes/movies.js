@@ -1,25 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
-const swapiUrl = 'https://swapi.co/api';
-const movies = require('../movies');
 const _ = require('lodash');
+const { getMovies } = require('../models/movie');
+const {getCommentsByMovie} = require('../models/comment');
 
 router.get('/', async (req, res) => {
-    // request(`${swapiUrl}/people/1`, {json: true, method:'get'}, (err, response, body) => {
-    //     if (err) {
-    //         console.log(err);
-    //         return res.status(500).send('An error occurred. Please try again')
-    //     }
-    //     return res.send({sender: req.ip, response: response, body: body})
-    // })
 
-    const sortedMovies = _.sortBy(movies.results, ['release_date']);
-    let my_movies = [];
-    _.each(sortedMovies, (value, key) => {
-        my_movies.push(_.pick(value, ['title', 'opening_crawl', 'release_date']))
-    });
-    res.send(my_movies);
+    try{
+        const sortedMovies = _.sortBy(movies.results, ['release_date']);
+        return res.send(sortedMovies);
+        let my_movies = [];
+        _.each(sortedMovies, (movie, key) => {
+            let url_array = movie.url.split('/');
+            const movie_id = url_array[5];
+            const comments = [];
+            getCommentsByMovie(movie_id, function (err, comments) {
+                if (err) throw err;
+                comments.push(comments);
+            });
+            movie['comments'] = comments;
+            my_movies.push(_.pick(movie, ['title', 'opening_crawl', 'release_date', 'comments']))
+        });
+        res.send(my_movies);
+    }catch (e) {
+        throw e
+    }
+
 });
 
 module.exports = router;
