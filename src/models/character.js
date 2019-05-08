@@ -2,19 +2,18 @@ const request = require('request');
 const swapiUrl = 'https://swapi.co/api';
 
 /**
- * Get movie by ID
+ * Get character
  * @param id
  * @return Promise
 * */
-function getMovie(id) {
+function people() {
     const options = {
-        url: `${swapiUrl}/films/${id}`,
+        url: `${swapiUrl}/people`,
         json: true,
         headers: {
             'User-Agent': 'request',
         }
     }
-
     return new Promise((resolve, reject) => {
         request.get(options, (err, resp, body) => {
             if(err) {
@@ -26,29 +25,4 @@ function getMovie(id) {
     })
 }
 
-/**
- * Get all movies
- * @return Promise
- * */
-function getMovies() {
-    const options = {
-        url: `${swapiUrl}/films`,
-        json: true,
-        headers: {
-            'User-Agent': 'request',
-        }
-    }
-
-    return new Promise((resolve, reject) => {
-        request.get(options, (err, res, body) => {
-            if(err) {
-                reject(err)
-            }else{
-                resolve(res)
-            }
-        })
-    })
-}
-
-module.exports.getMovies = getMovies;
-module.exports.getMovie = getMovie;
+module.exports.People = people;
