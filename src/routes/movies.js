@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
-const {getMovies} = require('../models/movie');
-const {Comment} = require('../models/comment');
+const {getMovies, getMovie} = require('../models/movie');
+const {Comment, countCommentsByMovieId, getCommentsByMovie} = require('../models/comment');
 const {displayError, displaySuccess} = require('../helpers/response');
 
 /**
@@ -17,28 +17,51 @@ router.get('/', async (req, res) => {
     }
     const sorted_movies = _.sortBy(movies.body.results, ['release_date']);
     const movies_count = sorted_movies.length;
-    let result = [];
-    let iterator = 0;
-
-    await _.each(sorted_movies, async (movie, key) => {
+    var result = [];
+    for (var i = 0; i < movies_count; i++) {
+        let movie = sorted_movies[i];
         let url_array = movie.url.split('/');
         const movie_id = url_array[5];
-        //console.log(comments);
-        movie.comments = await Comment.findAll({
-            raw: true,
-            attributes: ['id', 'content', 'commenter_ip', 'created_at'],
-            order: [['created_at', 'DESC']],
+        movie.comments_count = await Comment.count({
             where: {movie_id: movie_id}
         }).catch(err => {
-                throw err
-            });
-        result.push(_.pick(movie, ['title', 'opening_crawl', 'release_date', 'comments']));
-        if (iterator === movies_count) {
-            return res.send(result)
-        }
-        iterator ++;
+           return res.status(500).send('An error occurred. Please try again')
+        });
+        result.push(_.pick(movie, ['title', 'opening_crawl', 'release_date', 'comments_count']));
+    }
+
+    Promise.all(result).then((movies) => {
+         return res.send(movies);
+    })
+});
+
+router.get('/:id', async (req, res) => {
+    const movie_id = req.params.id;
+    const movie = await getMovie(movie_id).catch(err => {
+        return res.status(500).send(displayError('It\'s dark in here. Something went wrong'))
     });
-    //res.send(result);
+    if(movie.statusCode === 404) {
+        return res.status(404).send({status: 'error', message: `No movie with the ID ${movie_id} found`});
+    }
+   // movie.comments = await getCommentsByMovie(movie_id);
+    const result = {
+        title: movie.title,
+        opening_crawl: movie.opening_crawl,
+        release_date: movie.release_date,
+        comments: movie.comments
+    };
+    res.send(displaySuccess(result));
 });
 
 module.exports = router;
+
+
+//console.log(comments);
+// movie.comments = await Comment.findAll({
+//     raw: true,
+//     attributes: ['id', 'content', 'commenter_ip', 'created_at'],
+//     order: [['created_at', 'DESC']],
+//     where: {movie_id: movie_id}
+// }).catch(err => {
+//     throw err
+// });
