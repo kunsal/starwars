@@ -106,8 +106,10 @@ router.get('/:id/characters', async (req, res) => {
         if(filter_by !== undefined) {
             characters = _.filter(characters, {gender: filter_by})
         }
+        characters.total = characters.length;
+        const results = {total: characters.length, characters: characters};
         // Calculate height in cm and ft
-        res.send(displaySuccess(characters));
+        res.send(displaySuccess(results));
 
     }catch (e) {
         console.log(e);
