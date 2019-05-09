@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const express = require('express');
 
 // Database connection
-//require('./src/database/connection');
+require('./src/database/connection');
 
 const movies = require('./src/routes/movies');
 const comments = require('./src/routes/comments');

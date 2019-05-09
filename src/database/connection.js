@@ -1,17 +1,18 @@
 const Sequelize = require('sequelize');
+const config = require('config');
 
-const sequelize = new Sequelize("starwars2", "root", "root",
-        {
-            host: 'localhost',
-            port: 8889,
-            dialect: 'mysql',
-            operatorsAliases: false,
-            logging: false,
-            define: {
-                timestamps: false
-            }
+const sequelize = new Sequelize(config.db.database, config.db.username, config.db.password,
+    {
+        host: config.db.host,
+        port: config.db.port,
+        dialect: config.db.dialect,
+        operatorsAliases: false,
+        logging: false,
+        define: {
+            timestamps: false
         }
-    );
+    }
+);
 
 module.exports = sequelize;
 global.sequelize = sequelize;

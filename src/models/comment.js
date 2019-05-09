@@ -19,15 +19,15 @@ const commentSchema = {
 const Comment = sequelize.define('Comment', commentSchema);
 
 async function addComment(object) {
-    await Comment.create(object).catch(error => {
+    return await Comment.create(object).catch(error => {
         throw error
     })
 }
 
-function getCommentsByMovie(id) {
+function getCommentsByMovie(id, attributes = []) {
     return Comment.findAll({
         raw: true,
-        attributes: ['id', 'content', 'commenter_ip', 'created_at'],
+        attributes: attributes,
         order: [['created_at', 'DESC']],
         where: {'movie_id': id}
     }).then((comments) => {
@@ -42,19 +42,18 @@ function validateComment(comment) {
         movie_id: Joi.number().required(),
         comment: Joi.string().required().min(2).max(500),
     }
-
     return Joi.validate(comment, schema);
 }
 
 function countCommentsByMovieId(id) {
-    Comment.count({
+    return Comment.count({
         where: {'movie_id': id}
-    }).then(c => {
-        return c;
+    }).then(count => {
+        return count;
     }).catch(err => {
         console.log(err)
     });
-    return Promise.all()
+    //return Promise.all()
 }
 
 module.exports.validate = validateComment;

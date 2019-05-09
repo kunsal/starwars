@@ -1,0 +1,9 @@
+{
+  "db": {
+    "username": "luwuzphzjbqawj",
+    "password": "3f2872a705aebc05075b2083a222862656cb17a3bc56951a74ee4cf2698e8703",
+    "database": "d6qhcji8pvm6b7",
+    "host": "ec2-23-23-92-204.compute-1.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
