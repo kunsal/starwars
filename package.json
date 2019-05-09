@@ -4,6 +4,7 @@
   "description": "Minimalist Starwars movies API",
   "main": "index.js",
   "scripts": {
+    "serve": "node index.js --env production ",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -36,6 +37,7 @@
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
+    "pg": "^7.10.0",
     "request": "^2.88.0",
     "sequelize": "^5.8.5",
     "winston": "^3.2.1"
