@@ -18,7 +18,7 @@ const commentSchema = {
     }
 }
 
-const Comment = sequelize.define('comment', commentSchema);
+const Comment = sequelize.define('comment', commentSchema, {timestamps:false});
 
 async function addComment(object) {
     return await Comment.create(object).catch(error => {

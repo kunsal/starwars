@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
         const comment = await addComment(newComment);
         res.send(displaySuccess({comment_id: comment.id}, 'Comment added'));
     }catch (e) {
+        console.log(e.message);
         res.status(500).send(displayError('An error occurred and could not add comment'))
     }
 });

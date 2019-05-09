@@ -27,4 +27,4 @@ if (!global.hasOwnProperty('db')) {
   */
 }
 
-module.exports = global.db
+module.exports = global.db;
