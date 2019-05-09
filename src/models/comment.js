@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const Joi = require('joi');
+const db = require('../../models/index');
+const sequelize = db.sequelize;
 
 const commentSchema = {
     movie_id: {

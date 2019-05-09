@@ -27,6 +27,7 @@ router.get('/', async (req, res) => {
         }
         return res.send(displaySuccess(result));
     }catch (e) {
+        console.log(e);
         return res.status(500).send('An error occurred. Please try again')
     }
 
@@ -48,6 +49,7 @@ router.get('/:id', async (req, res) => {
         const result = _.pick(movie.body, ['title', 'opening_crawl', 'release_date', 'comments_count', 'comments']);
         res.send(displaySuccess(result));
     } catch (e) {
+        console.log(e.message);
         return res.status(500).send(displayError('An error occurred. Please try again'))
     }
 });
@@ -62,6 +64,7 @@ router.get('/:id/comments', async (req, res) => {
         const comments = await getCommentsByMovie(movie_id, ['movie_id','content', 'commenter_ip', 'created_at']);
         res.send(displaySuccess(comments));
     } catch (e) {
+        console.log(e);
         return res.status(500).send(displayError('An error occurred. Please try again'))
     }
 });
@@ -107,6 +110,7 @@ router.get('/:id/characters', async (req, res) => {
         res.send(displaySuccess(characters));
 
     }catch (e) {
+        console.log(e);
         return res.status(500).send(displayError('An error occurred. Please try again'))
     }
 });
