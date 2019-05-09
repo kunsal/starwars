@@ -84,6 +84,7 @@ router.get('/:id/characters', async (req, res) => {
         let characters = [];
         for(let i = 0; i < people.length; i++) {
             if(_.includes(people[i].films, `https://swapi.co/api/films/${movie_id}/`)){
+                people[i].height_in_ft = toFeet(people[i].height);
                 characters.push(people[i]);
             }
         }
@@ -103,11 +104,18 @@ router.get('/:id/characters', async (req, res) => {
             characters = _.filter(characters, {gender: filter_by})
         }
         // Calculate height in cm and ft
-        res.send(characters);
+        res.send(displaySuccess(characters));
 
     }catch (e) {
         return res.status(500).send(displayError('An error occurred. Please try again'))
     }
-})
+});
+
+function toFeet(n) {
+    var realFeet = ((n*0.393700) / 12);
+    var feet = Math.floor(realFeet);
+    var inches = Math.round((realFeet - feet) * 12);
+    return feet + 'ft' + inches + 'in';
+}
 
 module.exports = router;
