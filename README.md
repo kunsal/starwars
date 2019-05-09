@@ -15,8 +15,9 @@ Retrieve all movies
   
 | uri | method |
 |-----| ---------|
-|``/api/movies/``| GET 
-|     |
+|``/api/movies/``| GET |
+|     ||
+
 Response:
 ```$xslt
 {
@@ -103,8 +104,9 @@ Retrieve comments for a single movie
   
 | uri | method | Parameter|
 |-----| ---------| ------|
-|``/api/movies/<movie_id>/comments``| GET | ``<integer>`` movie_id|
+|``/api/movies/<movie_id>/comments``| GET | ``<integer>`` movie_id |
 |     | | |
+
 Response:
 ```$xslt
 {
@@ -138,8 +140,9 @@ e.g ```/api/movies/2/characters?sort_by=gender&sort_order=desc&filter_by=female`
   
 | uri | method | Parameter|
 |-----| ---------| ------|
-|``/api/movies/<movie_id>/characters``| GET | ``<integer>`` movie_id|
+|``/api/movies/<movie_id>/characters``| GET | ``<integer>`` movie_id |
 |     | | |
+
 Response:
 ```$xslt
 {
