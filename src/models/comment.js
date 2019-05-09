@@ -3,7 +3,7 @@ const Joi = require('joi');
 
 const commentSchema = {
     movie_id: {
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     content: {
@@ -16,7 +16,7 @@ const commentSchema = {
     }
 }
 
-const Comment = sequelize.define('Comment', commentSchema);
+const Comment = sequelize.define('comment', commentSchema);
 
 async function addComment(object) {
     return await Comment.create(object).catch(error => {

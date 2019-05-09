@@ -1,9 +1,0 @@
-{
-  "db": {
-    "username": "root",
-    "password": "root",
-    "database": "starwars2",
-    "host": "",
-    "dialect": "mysql"
-  }
-}
