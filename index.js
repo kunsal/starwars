@@ -1,6 +1,6 @@
 // Imports
 const config = require('config');
-const dotenv = require('dotenv');
+//const dotenv = require('dotenv');
 const morgan = require('morgan');
 const express = require('express');
 
@@ -11,7 +11,7 @@ const movies = require('./src/routes/movies');
 const comments = require('./src/routes/comments');
 const characters = require('./src/routes/characters');
 
-dotenv.config();
+//dotenv.config();
 app = express();
 
 // Middlewares
