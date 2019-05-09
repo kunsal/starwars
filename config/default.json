@@ -3,8 +3,7 @@
     "username": "root",
     "password": "root",
     "database": "starwars2",
-    "host": "127.0.0.1",
-    "port": 8889,
+    "host": "",
     "dialect": "mysql"
   }
 }
